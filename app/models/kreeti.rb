@@ -1,0 +1,2 @@
+class Kreeti < ApplicationRecord
+end

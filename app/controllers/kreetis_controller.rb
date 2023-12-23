@@ -1,0 +1,2 @@
+class KreetisController < ApplicationController
+end
