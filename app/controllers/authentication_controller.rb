@@ -1,29 +1,21 @@
 class AuthenticationController < ApplicationController
 
+include AuthenticationHelper
+
+  skip_before_action :verify_authorization, only: ['login']
+
   def login
     @user = User.find_by(email: auth_params[:email])
-    if(@user.authenticate(auth_params[:password]))
-      token = JwtWebToken.encode({id: @user.id})
-      render :json =>{ :token => token, :user_data => {id: @user.id}}, status: :ok
+    if(@user&.authenticate(auth_params[:password]))
+      data = post_login_work
+      render :json => data, status: :ok
     else
       render :json =>{ :msg => "Invalid Credentials"}, status: :bad_request
     end
   end
 
-  def signup
-
-    @user = User.create(auth_params)
-    if(@user)
-      token = JwtWebToken.encode({id: @user.id})
-      render :json =>{ :token => token, :user_data => {id: @user.id}}, status: :ok
-    else
-      render :json =>{ :msg => "Some Error Occured"}, status: :bad_request
-    end
-
-  end
-
   private
   def auth_params
-    params.require(:user).permit(:first_name,:last_name,:email,:password)
+    params.require(:user).permit(:email,:password)
   end
 end
