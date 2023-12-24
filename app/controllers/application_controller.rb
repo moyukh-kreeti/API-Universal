@@ -5,8 +5,8 @@ class ApplicationController < ActionController::Base
   def verify_authorization
     header = request.headers['authorization']
     token  = header.split(" ")[1]
-    data  = JwtWebToken.decode(token)
-    unless data
+    @auth_data  = JwtWebToken.decode(token)
+    unless @auth_data
       render :json => {msg: "Session Expired"},status: :unauthorized
     end
   end
