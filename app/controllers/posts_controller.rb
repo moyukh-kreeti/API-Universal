@@ -1,9 +1,23 @@
 # app/controllers/posts_controller.rb
+require 'csv'
+require 'faker'
 
 class PostsController < ApplicationController
-    before_action :set_user, only: [:index, :create]
+    before_action :set_user, only: [:index, :create, :create_csv]
     before_action :set_post, only: [:show, :update, :destroy]
-  
+    def create_csv
+        posts = @user.posts
+    
+        csv_data = CSV.generate(headers: true) do |csv|
+          csv << ['Title', 'Content', 'Created At']
+    
+          posts.each do |post|
+            csv << [post.title, post.content, post.created_at]
+          end
+        end
+    
+        send_data csv_data, filename: "user_#{params[:user_id]}_posts.csv", type: 'text/csv', disposition: 'attachment'
+    end
     def index
       render json: @user.posts, status: :ok
     end
