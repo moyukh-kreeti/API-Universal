@@ -3,11 +3,11 @@ require 'csv'
 require 'faker'
 
 class PostsController < ApplicationController
-    before_action :set_user, only: [:index, :create, :create_csv]
+    before_action :set_user
     before_action :set_post, only: [:show, :update, :destroy]
     def create_csv
-        posts = @user.posts
-    
+      binding.pry
+      posts = @user.posts
         csv_data = CSV.generate(headers: true) do |csv|
           csv << ['Title', 'Content', 'Created At']
     
@@ -17,12 +17,15 @@ class PostsController < ApplicationController
         end
     
         send_data csv_data, filename: "user_#{params[:user_id]}_posts.csv", type: 'text/csv', disposition: 'attachment'
+        # render body: nil
     end
+
     def index
       render json: @user.posts, status: :ok
     end
   
     def show
+      # binding.pry
       if @post
         render json: @post, status: :ok
       else
