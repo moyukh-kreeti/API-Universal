@@ -16,7 +16,8 @@ class UsersController < ApplicationController
       token = JwtWebToken.encode({id: user.id, email: user.email,name: "#{user.first_name} #{user.last_name}"})
       render :json =>{ :token => token, :user_data => {id: user.id,name: "#{user.first_name} #{user.last_name}"}}, status: :ok
     else
-      render :json =>{ :msg => "Some Error Occured"}, status: :bad_request
+      error_messages = user.errors.messages.transform_values { |msg| msg[0] }
+      render json: { msg: error_messages }, status: :bad_request
     end
   end
 
