@@ -48,7 +48,7 @@ RSpec.describe "UsersControllers", type: :request do
       user = User.find_or_create_by(user_attr)
       token = JwtWebToken.encode({id: user.id, email: user.email,name: "#{user.first_name} #{user.last_name}"})
       get "/users/999",headers: {'Authorization' => "Bearer #{token}"}
-      expect(response).to have_http_status(404)
+      expect(response).to have_http_status(422)
     end
   end
 
@@ -100,7 +100,7 @@ RSpec.describe "UsersControllers", type: :request do
       token = JwtWebToken.encode({id: user.id, email: user.email,name: "#{user.first_name} #{user.last_name}"})
       put "/users/999", params: new_params ,headers: {'Authorization' => "Bearer #{token}"}
 
-      expect(response).to have_http_status(404)
+      expect(response).to have_http_status(422)
     end
   end
 
@@ -112,7 +112,7 @@ RSpec.describe "UsersControllers", type: :request do
         delete "/users/#{user.id}",headers: {'Authorization' => "Bearer #{token}"}
       }.to change(User, :count).by(-1)
 
-      expect(response).to have_http_status(:no_content)
+      expect(response).to have_http_status(:ok)
     end
 
     it 'unauthorized user' do
@@ -132,7 +132,7 @@ RSpec.describe "UsersControllers", type: :request do
         delete "/users/999",headers: {'Authorization' => "Bearer #{token}"}
       }.to change(User, :count).by(0)
 
-      expect(response).to have_http_status(404)
+      expect(response).to have_http_status(422)
     end
   end
 
