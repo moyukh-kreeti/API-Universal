@@ -1,6 +1,4 @@
 class WordsController < ApplicationController
-  skip_before_action :verify_authorization, only: %i[meaning synonym]
-
   # The API endpoint will be of the form:
   # words/meaning?word=<our_word>
   def meaning
