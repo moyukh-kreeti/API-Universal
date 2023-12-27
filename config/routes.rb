@@ -10,4 +10,9 @@ Rails.application.routes.draw do
 
   post 'authentication/signup'
   post 'authentication/login'
+
+  resources :words do
+    get 'meaning', to: :meaning, on: :collection
+    get 'synonym', to: :synonym, on: :collection
+  end
 end
