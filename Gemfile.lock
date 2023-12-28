@@ -68,6 +68,7 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
+    base64 (0.2.0)
     bcrypt (3.1.20)
     bindex (0.8.1)
     bootsnap (1.17.0)
@@ -142,6 +143,7 @@ GEM
     nio4r (2.7.0)
     nokogiri (1.15.5-x86_64-linux)
       racc (~> 1.4)
+    openssl (3.2.0)
     pg (1.5.4)
     pry (0.14.2)
       coderay (~> 1.1)
@@ -259,6 +261,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  base64
   bcrypt (~> 3.1.7)
   bootsnap
   capybara
@@ -269,6 +272,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jwt
+  openssl
   pg (~> 1.1)
   pry
   puma (~> 5.0)
@@ -286,7 +290,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.1.2p20
+   ruby 3.2.1p31
 
 BUNDLED WITH
    2.4.13

@@ -1,10 +1,24 @@
 require 'swagger_helper'
 
-RSpec.describe 'words', type: :request do
+RSpec.describe 'documents', type: :request do
 
-  path '/words/meaning' do
+  path '/documents' do
 
-    get('meaning word') do
+    get('list documents') do
+      response(200, 'successful') do
+
+        after do |example|
+          example.metadata[:response][:content] = {
+            'application/json' => {
+              example: JSON.parse(response.body, symbolize_names: true)
+            }
+          }
+        end
+        run_test!
+      end
+    end
+
+    post('create document') do
       response(200, 'successful') do
 
         after do |example|
@@ -19,9 +33,9 @@ RSpec.describe 'words', type: :request do
     end
   end
 
-  path '/words/synonym' do
+  path '/documents/new' do
 
-    get('synonym word') do
+    get('new document') do
       response(200, 'successful') do
 
         after do |example|
@@ -36,59 +50,11 @@ RSpec.describe 'words', type: :request do
     end
   end
 
-  path '/words' do
-
-    get('list words') do
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-
-    post('create word') do
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-  end
-
-  path '/words/new' do
-
-    get('new word') do
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-  end
-
-  path '/words/{id}/edit' do
+  path '/documents/{id}/edit' do
     # You'll want to customize the parameter types...
     parameter name: 'id', in: :path, type: :string, description: 'id'
 
-    get('edit word') do
+    get('edit document') do
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -104,11 +70,11 @@ RSpec.describe 'words', type: :request do
     end
   end
 
-  path '/words/{id}' do
+  path '/documents/{id}' do
     # You'll want to customize the parameter types...
     parameter name: 'id', in: :path, type: :string, description: 'id'
 
-    get('show word') do
+    get('show document') do
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -123,7 +89,7 @@ RSpec.describe 'words', type: :request do
       end
     end
 
-    patch('update word') do
+    patch('update document') do
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -138,7 +104,7 @@ RSpec.describe 'words', type: :request do
       end
     end
 
-    put('update word') do
+    put('update document') do
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -153,7 +119,7 @@ RSpec.describe 'words', type: :request do
       end
     end
 
-    delete('delete word') do
+    delete('delete document') do
       response(200, 'successful') do
         let(:id) { '123' }
 
