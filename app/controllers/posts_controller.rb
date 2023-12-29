@@ -20,7 +20,13 @@ class PostsController < ApplicationController
   end
 
   def index
-    render json: @user.posts, status: :ok
+    posts = @user.posts
+  
+    if posts.empty?
+      render json: { message: "User has not created any posts yet" }, status: :ok
+    else
+      render json: posts, status: :ok
+    end
   end
 
   def show
