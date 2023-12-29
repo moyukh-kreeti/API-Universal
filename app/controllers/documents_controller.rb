@@ -29,6 +29,16 @@ include DocumentsHelper
     render :json => { :message => "something went wrong" }
   end
 
+  def destroy
+    @document = Document.find(params[:id])
+    response = destroyObjectFromS3(@document.s3_object)
+    if response.code == 204
+      @document.destroy
+      render :json => { :message => "document deleted" }, status: :ok
+    else
+      render :json => { :message => "something went wrong" }
+    end
+  end
   private
     def document_params
       params.require(:document).permit(:file)

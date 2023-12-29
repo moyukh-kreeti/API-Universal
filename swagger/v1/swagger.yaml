@@ -33,7 +33,7 @@ paths:
                   properties:
                     email:
                       type: string
-                      default: moyukh00145@gmail.com
+                      default: azad@gmail.com
                     password:
                       type: string
                       default: '123456'
@@ -95,6 +95,24 @@ paths:
           description: document not found
         '500'
           description: Internal server error
+    delete:
+      summary: delete document
+      tags:
+      - Documents
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Document ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+        '404':
+          description: document not found      
     parameters:
     - name: id
       in: path

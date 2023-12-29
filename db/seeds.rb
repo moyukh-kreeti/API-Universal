@@ -12,3 +12,4 @@ User.create!(first_name: 'ram', last_name: 'TCS', email: 'ram@gmail.com', passwo
 User.create!(first_name: 'gaurav', last_name: 'TCS', email: 'gaurav@gmail.com', password: '123456' )
 User.create!(first_name: 'lokesh', last_name: 'TCS', email: 'lokesh@gmail.com', password: '123456' )
 User.create!(first_name: 'Sangita', last_name: 'TCS', email: 'sangita@gmail.com', password: '123456' )
+
