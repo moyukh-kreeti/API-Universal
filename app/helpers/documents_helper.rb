@@ -41,4 +41,8 @@ module DocumentsHelper
   def uploadToS3(file, key)
     make_s3_request('PUT', key, '', file.read, file.content_type)
   end
+
+  def destroyObjectFromS3(filename)
+    make_s3_request('DELETE', filename, '', '', '')
+  end
 end
