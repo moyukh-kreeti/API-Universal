@@ -40,6 +40,63 @@ paths:
               - email
               - password
         required: true
+  "/documents":
+    get:
+      summary: list documents
+      tags:
+      - Documents
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create document
+      tags:
+        - Documents
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: successful
+        '400':
+          description: something went wrong
+  "/documents/{id}":
+    get:
+      summary: show document
+      tags:
+      - Documents
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Document ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+        '404':
+          description: document not found
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
   "/users/{user_id}/posts":
     get:
       summary: Retrieves all posts for a user
@@ -348,122 +405,6 @@ paths:
           description: successful
         '404':
           description: Word not found
-  "/documents":
-    get:
-      summary: list documents
-      responses:
-        '200':
-          description: successful
-    post:
-      summary: create document
-      responses:
-        '200':
-          description: successful
-  "/documents/new":
-    get:
-      summary: new document
-      responses:
-        '200':
-          description: successful
-  "/documents/{id}/edit":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: edit document
-      responses:
-        '200':
-          description: successful
-  "/documents/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: show document
-      responses:
-        '200':
-          description: successful
-    patch:
-      summary: update document
-      responses:
-        '200':
-          description: successful
-    put:
-      summary: update document
-      responses:
-        '200':
-          description: successful
-    delete:
-      summary: delete document
-      responses:
-        '200':
-          description: successful
-  "/words":
-    get:
-      summary: list words
-      responses:
-        '200':
-          description: successful
-    post:
-      summary: create word
-      responses:
-        '200':
-          description: successful
-  "/words/new":
-    get:
-      summary: new word
-      responses:
-        '200':
-          description: successful
-  "/words/{id}/edit":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: edit word
-      responses:
-        '200':
-          description: successful
-  "/words/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: show word
-      responses:
-        '200':
-          description: successful
-    patch:
-      summary: update word
-      responses:
-        '200':
-          description: successful
-    put:
-      summary: update word
-      responses:
-        '200':
-          description: successful
-    delete:
-      summary: delete word
-      responses:
-        '200':
-          description: successful
 servers:
 - url: http://{defaultHost}
   variables:

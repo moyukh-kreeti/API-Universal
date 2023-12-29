@@ -1,6 +1,5 @@
 class DocumentsController < ApplicationController
 include DocumentsHelper
-  skip_before_action :verify_authorization
 
   def index
     @documents = Document.all
