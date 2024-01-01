@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       render :json =>{ :token => token, :user_data => {id: user.id,name: "#{user.first_name} #{user.last_name}"}}, status: :ok
     else
       error_messages = user.errors.messages.transform_values { |msg| msg[0] }
-      render json: { msg: error_messages }, status: :bad_request
+      render json: { msg: error_messages }, status: :unprocessable_entity
     end
   end
 

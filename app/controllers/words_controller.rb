@@ -5,7 +5,7 @@ class WordsController < ApplicationController
     api_url = "https://api.dictionaryapi.dev/api/v2/entries/en/#{params['word']}"
     response = HTTParty.get(api_url, headers: { 'Content-Type' => 'application/json' })
 
-    return render json: { 'message': 'Word not found' }, status: :not_found unless response.code == 200
+    return render json: { 'message': 'Word not found in the dictionary' }, status: :not_found unless response.code == 200
 
     meanings = []
     response.parsed_response[0]['meanings'].each do |meaning|
@@ -21,7 +21,7 @@ class WordsController < ApplicationController
     api_url = "https://api.dictionaryapi.dev/api/v2/entries/en/#{params['word']}"
     response = HTTParty.get(api_url, headers: { 'Content-Type' => 'application/json' })
 
-    return render json: { 'message': 'Word not found' }, status: :not_found unless response.code == 200
+    return render json: { 'message': 'Word not found in the dictionary' }, status: :not_found unless response.code == 200
 
     synonyms = []
     response.parsed_response[0]['meanings'].each do |meaning|

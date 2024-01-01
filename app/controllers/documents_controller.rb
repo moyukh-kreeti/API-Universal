@@ -15,8 +15,12 @@ include DocumentsHelper
 
   def create
     file = params[:file]
+    if file.blank?
+      return render json: { message: "File is required", error: true }, status: :unprocessable_entity
+    end
     key = SecureRandom.hex(16)
     response = uploadToS3(file, key)
+    
     if response.code == 200
       @document = Document.new(file: file.original_filename, s3_object: key)
       @document.save
